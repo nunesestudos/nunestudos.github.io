@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aulas de História</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f1;--ink:#14262b;--mut:#4d6165;--acc:#0e6b73;--sun:#e3a72f;--card:#fff;--line:#c9d6d4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1b1e;--ink:#e8f0ef;--mut:#9db3b6;--acc:#5cc3cb;--sun:#f0bd4f;--card:#172a2e;--line:#2a4247}}
+:root[data-theme="dark"]{--bg:#0f1b1e;--ink:#e8f0ef;--mut:#9db3b6;--acc:#5cc3cb;--sun:#f0bd4f;--card:#172a2e;--line:#2a4247}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Public Sans",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+header{padding:48px 0 28px;border-bottom:4px solid var(--sun)}
+h1{font:700 clamp(2rem,8vw,3.2rem)/1.1 "Source Serif 4",Georgia,serif;margin:0 0 12px}
+header p{margin:0;color:var(--mut);max-width:52ch}
+h2{font:700 1.5rem/1.2 "Source Serif 4",Georgia,serif;margin:40px 0 16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chips button{font:600 .95rem "Public Sans",sans-serif;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+details{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc);border-radius:6px;margin-bottom:10px;padding:14px 16px}
+summary{cursor:pointer;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary small{display:block;color:var(--mut);font-weight:400}
+details p{margin:10px 0 0;color:var(--mut)}
+details a{color:var(--acc);font-weight:600}
+.empty{color:var(--mut);display:none}
+ul.mat{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+ul.mat li{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 16px;display:flex;justify-content:space-between;gap:12px}
+ul.mat a{color:var(--acc);font-weight:600}
+ul.mat span{color:var(--mut);font-size:.9rem;white-space:nowrap}
+details ul{margin:10px 0 0;padding-left:20px;color:var(--mut)}
+details li{margin-bottom:4px}
+footer{margin:48px 0 32px;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Aulas de História</h1>
+<p>Resumos, fichas e materiais de apoio para os alunos. Escola Secundária de Rotanda, Sussundenga.</p>
+</div></header>
+<main class="wrap">
+<h2>Unidades por classe</h2>
+<div class="chips" id="chips" role="group" aria-label="Filtrar por classe"></div>
+<div id="list"></div>
+
+
+<h2>Cadernos de actividades</h2>
+<ul class="mat" id="mat"></ul>
+</main>
+<footer class="wrap">Professor Nunes Bernardo Cemba</footer>
+<script>
+var L=[
+{c:"8ª",t:"A formação do sistema capitalista mundial (séc. XV-XVIII)",d:["Europa e mundo no início do séc. XV","Desenvolvimento de África nos séc. XV-XVII","Expansão europeia e comércio colonial","Expansão portuguesa em Moçambique","Pilhagem colonial e tráfico de escravos","Renascimento e Humanismo","Reforma Religiosa","Absolutismo e Iluminismo","Revolução burguesa na Inglaterra","Independência das colónias inglesas da América do Norte"]},
+{c:"8ª",t:"O capitalismo industrial e o movimento operário",d:["Revolução Industrial","Movimento operário","Teorias socialistas","Partidos operários europeus","Comuna de Paris"]},
+{c:"8ª",t:"Do capitalismo industrial ao imperialismo",d:["Grandes potências e partilha do mundo","Impérios coloniais em África","Luta contra a ocupação efectiva","Resistência em Moçambique"]},
+{c:"9ª",t:"A formação do sistema capitalista mundial (séc. XV-XVIII)",d:["Expansão europeia e comércio colonial","Teorias económicas: mercantilismo e fisiocratismo","Renascimento, Reforma Religiosa e Absolutismo","Iluminismo","Revolução burguesa na Inglaterra","Independência das colónias da América do Norte","Revolução Francesa"]},
+{c:"9ª",t:"O capitalismo industrial e o movimento operário (séc. XVIII-XIX)",d:["Revolução Industrial e suas consequências","Movimento operário e partidos operários","Comuna de Paris","África e Moçambique na época das revoluções burguesa e industrial"]},
+{c:"9ª",t:"Do capitalismo industrial ao imperialismo",d:["Do capitalismo industrial ao imperialismo","Grandes potências imperialistas e Conferência de Berlim","Resistência africana (Zulu, Namíbia, Moçambique)"]},
+{c:"10ª",t:"As contradições imperialistas (finais do séc. XIX até ao fim da I Guerra Mundial)",d:["Desenvolvimento dos principais países capitalistas","Estabelecimento do sistema colonial em África","Resistência africana"]},
+{c:"10ª",t:"O mundo depois da I Guerra Mundial até ao fim da II Guerra Mundial",d:["A Rússia no início do séc. XX","A Grande Depressão de 1929-1933","A II Guerra Mundial (1939-1945)"]},
+{c:"10ª",t:"Nacionalismo económico de Salazar",d:["O Acto Colonial","As culturas forçadas","A colonização mental","Colonatos e planos de fomento","A contestação da situação colonial (1938-1955)"]},
+{c:"10ª",t:"O mundo entre a confrontação e o desanuviamento",d:["Factores de sucesso dos EUA e da URSS","A Guerra Fria e as suas manifestações","Desestabilização de Moçambique pelo apartheid","Países da Linha da Frente","Coexistência pacífica","Países do Terceiro Mundo"]},
+{c:"11ª",t:"Historiografia",d:["Conceitos e correntes da historiografia"]},
+{c:"11ª",t:"A invasão do continente africano",d:["África diante do desafio colonial","A corrida imperialista e a partilha de África","A resistência africana"]},
+{c:"11ª",t:"O período colonial",d:["A política colonial","Formas de dominação colonial","Estruturas coloniais"]},
+{c:"11ª",t:"O nacionalismo africano",d:["Surgimento do nacionalismo em África","Independência nos territórios franceses","Independência do Congo","Independência na África Central Britânica"]},
+{c:"11ª",t:"África independente",d:["Organização da Unidade Africana","Integração económica na África Austral"]},
+{c:"12ª",t:"História de Moçambique",d:["Periodização e cronologia","Períodos da História de Moçambique","Problemática das fontes"]},
+{c:"12ª",t:"Da comunidade primitiva ao surgimento das sociedades de exploração",d:["As primeiras comunidades em Moçambique"]},
+{c:"12ª",t:"Os Estados de Moçambique e a penetração mercantil estrangeira",d:["Os primeiros estados em Moçambique","A penetração mercantil estrangeira","As novas unidades políticas"]},
+{c:"12ª",t:"O período imperialista",d:["Do período mercantil ao imperialismo","O Estado colonial português em Moçambique"]},
+{c:"12ª",t:"O colonial-fascismo (1930-1974)",d:["O nacionalismo económico de Salazar","A resistência à dominação colonial"]}
+];
+var M=[["8ª","Caderno de História, 8ª classe","https://drive.google.com/file/d/1B8yvpW6IXPT9hPcYStqUnGETEoLtkZsZ/view?usp=drivesdk"],["9ª","Caderno de actividades, 9ª classe","https://drive.google.com/file/d/1e3ZnxEBRB2O5d671Yu9ZnYd4ceVA5qZu/view?usp=drivesdk"],["10ª","Caderno de História, 10ª classe","https://drive.google.com/file/d/1_M-XTabbnvyE76cZI4asQvITUYbpXyCy/view?usp=drivesdk"],["11ª","Caderno de História, 11ª classe","https://drive.google.com/file/d/11_IwH1mUdcMW0iALqg7YGiuNjZmeaUfE/view?usp=drivesdk"],["12ª","Caderno de História, 12ª classe","https://drive.google.com/file/d/1976D42wgNTCWd0l9qWYjeubdu2cYkm81/view?usp=drivesdk"]];
+var cls=["Todas","8ª","9ª","10ª","11ª","12ª"],cur="8ª",chips=document.getElementById("chips");
+function draw(){
+chips.innerHTML="";
+cls.forEach(function(c){var b=document.createElement("button");b.textContent=c;b.setAttribute("aria-pressed",c===cur);b.onclick=function(){cur=c;draw()};chips.appendChild(b)});
+var items=L.filter(function(x){return cur==="Todas"||x.c===cur});
+document.getElementById("list").innerHTML=items.map(function(x){return "<details><summary>"+x.t+"<small>"+x.c+" classe</small></summary><ul>"+x.d.map(function(i){return "<li>"+i+"</li>"}).join("")+"</ul></details>"}).join("");
+document.getElementById("mat").innerHTML=M.filter(function(m){return cur==="Todas"||m[0]===cur}).map(function(m){return "<li>"+(m[2]?"<a href=\""+m[2]+"\" target=\"_blank\" rel=\"noopener\">"+m[1]+"</a><span>PDF</span>":m[1]+"<span>link em breve</span>")+"</li>"}).join("");
+}
+draw();
+</script>
+</body>
+</html>
